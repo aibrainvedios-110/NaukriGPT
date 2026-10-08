@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NaukriGPT - AI Resume Builder Pakistan</title>
+    <meta
+      name="description"
+      content="NaukriGPT - AI Resume Builder Pakistan. Build ATS-approved resumes in 10 seconds with AI. Trusted by 25,000+ Pakistani job seekers from LUMS, IBA, Karachi University."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              bgDark: "#07111f",
+              panel: "#0d1728",
+              panel2: "#122033",
+              soft: "#dfe8f3",
+              muted: "#8ca2b8",
+              accent: "#4cc9f0",
+              accent2: "#7c3aed",
+              gold: "#fbbf24",
+              success: "#34d399",
+              danger: "#f87171",
+              brand: "#00c2ff",
+            },
+            boxShadow: {
+              glow: "0 0 0 1px rgba(76,201,240,.30), 0 12px 40px rgba(76,201,240,.18)",
+              softCard: "0 20px 80px rgba(3,7,18,.5)",
+              deepGlow: "0 0 30px rgba(76,201,240,.25)",
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+            },
+            animation: {
+              slideInUp: "slideInUp 0.8s ease-out",
+              fadeIn: "fadeIn 0.6s ease-out",
+              pulse: "pulse 2s infinite",
+              float: "float 6s ease-in-out infinite",
+            },
+            keyframes: {
+              slideInUp: {
+                from: { opacity: "0", transform: "translateY(30px)" },
+                to: { opacity: "1", transform: "translateY(0)" },
+              },
+              fadeIn: {
+                from: { opacity: "0" },
+                to: { opacity: "1" },
+              },
+              float: {
+                "0%, 100%": { transform: "translateY(0px)" },
+                "50%": { transform: "translateY(-20px)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background:
+          radial-gradient(circle at top left, rgba(76, 201, 240, 0.12), transparent 28%),
+          radial-gradient(circle at right, rgba(124, 58, 237, 0.16), transparent 30%),
+          linear-gradient(180deg, #040d1a 0%, #07111f 30%, #0a1321 100%);
+        color: #edf6ff;
+        font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+      }
+
+      .glass {
+        background: rgba(15, 23, 42, 0.55);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(148, 163, 184, 0.14);
+      }
+
+      .glass-strong {
+        background: rgba(13, 23, 40, 0.7);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid rgba(148, 163, 184, 0.14);
+      }
+
+      .glass-accent {
+        background: rgba(76, 201, 240, 0.06);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(76, 201, 240, 0.2);
+      }
+
+      .hero-grid {
+        background-image:
+          linear-gradient(rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
+        background-size: 26px 26px;
+      }
+
+      .section-title {
+        letter-spacing: -0.04em;
+      }
+
+      .gradient-text {
+        background: linear-gradient(90deg, #ffffff, #8bdcff 35%, #b5c7ff 70%, #d7d2ff 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .gradient-accent {
+        background: linear-gradient(135deg, #4cc9f0 0%, #7c3aed 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .shadow-radial {
+        box-shadow: 0 20px 90px rgba(76, 201, 240, 0.18);
+      }
+
+      .preview-shell {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .preview-shell::before {
+        content: "";
+        position: absolute;
+        inset: -20% 20% auto -15%;
+        height: 220px;
+        background: radial-gradient(circle, rgba(76, 201, 240, 0.22), transparent 60%);
+        filter: blur(18px);
+        pointer-events: none;
+      }
+
+      .type-cursor {
+        display: inline-block;
+        width: 10px;
+        height: 1.2em;
+        background: #f8fafc;
+        vertical-align: middle;
+        margin-left: 6px;
+        opacity: 1;
+        animation: blink 0.9s infinite;
+      }
+
+      @keyframes blink {
+        0%, 45% { opacity: 1; }
+        46%, 100% { opacity: 0; }
+      }
+
+      .fade-in-up {
+        animation: fadeInUp 0.8s ease both;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .faq-item.open .faq-answer {
+        max-height: 280px;
+        opacity: 1;
+        padding-top: 0.75rem;
+      }
+
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.28s ease, opacity 0.28s ease, padding-top 0.28s ease;
+      }
+
+      .pulse-badge {
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.25); }
+        50% { box-shadow: 0 0 0 12px rgba(52, 211, 153, 0); }
+      }
+
+      .btn-gradient {
+        background: linear-gradient(135deg, #4cc9f0 0%, #7c3aed 100%);
+        color: #0f172a;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 0 1px rgba(76,201,240,.30), 0 12px 40px rgba(76,201,240,.18);
+      }
+
+      .btn-gradient:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 0 1px rgba(76,201,240,.40), 0 18px 50px rgba(76,201,240,.28);
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(76, 201, 240, 0.2);
+      }
+
+      .pricing-card-popular {
+        position: relative;
+      }
+
+      .pricing-card-popular::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(76, 201, 240, 0.1), rgba(124, 58, 237, 0.1));
+        border-radius: inherit;
+        pointer-events: none;
+      }
+
+      .feature-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        background: rgba(76, 201, 240, 0.1);
+        border: 1px solid rgba(76, 201, 240, 0.2);
+        border-radius: 12px;
+        color: #4cc9f0;
+        font-size: 24px;
+      }
+
+      .nav-link {
+        position: relative;
+        color: #cbd5e1;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background: #4cc9f0;
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover {
+        color: #ffffff;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .badge-cyan {
+        background: rgba(76, 201, 240, 0.1);
+        border: 1px solid rgba(76, 201, 240, 0.3);
+        color: #a5f3fc;
+      }
+
+      .badge-violet {
+        background: rgba(124, 58, 237, 0.1);
+        border: 1px solid rgba(124, 58, 237, 0.3);
+        color: #e9d5ff;
+      }
+
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .hero-text-shadow {
+        text-shadow: 0 0 60px rgba(76, 201, 240, 0.25);
+      }
+
+      @media (max-width: 768px) {
+        .section-title {
+          font-size: 1.875rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen antialiased">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <!-- Navbar -->
+      <header class="sticky top-0 z-50 pt-4">
+        <nav class="glass mx-auto flex max-w-6xl items-center justify-between rounded-full px-4 py-3 sm:px-6 shadow-softCard">
+          <!-- Logo -->
+          <div class="flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-violet-500 shadow-glow">
+              <span class="text-lg font-black text-slate-950">N</span>
+            </div>
+            <div>
+              <div class="text-lg font-extrabold tracking-tight text-white">NaukriGPT</div>
+            </div>
+          </div>
+
+          <!-- Nav Links -->
+          <div class="hidden items-center gap-8 text-sm text-slate-300 md:flex">
+            <a href="#features" class="nav-link">Features</a>
+            <a href="#pricing" class="nav-link">Pricing</a>
+            <a href="#testimonials" class="nav-link">Reviews</a>
+            <a href="#faq" class="nav-link">FAQ</a>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="flex items-center gap-3">
+            <button class="hidden rounded-full border border-slate-700 bg-slate-900/50 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-800 sm:block">
+              Log in
+            </button>
+            <button class="rounded-full btn-gradient px-5 py-2.5 text-sm font-bold">
+              Start Free
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      <!-- Hero Section -->
+      <main class="relative">
+        <section class="hero-grid flex min-h-[680px] items-center">
+          <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 py-14 lg:grid-cols-[1.1fr_0.9fr]">
+            <!-- Hero Content -->
+            <div class="fade-in-up">
+              <!-- Badge -->
+              <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-400/25 bg-cyan-400/10 px-3 py-1.5 text-xs font-semibold text-cyan-200">
+                <span class="h-2 w-2 rounded-full bg-cyan-300 pulse-badge"></span>
+                Trusted by 25,000+ Pakistani job seekers
+              </div>
+
+              <!-- Heading -->
+              <h1 class="section-title max-w-xl text-4xl font-black leading-[1.05] tracking-[-0.06em] text-white sm:text-5xl lg:text-7xl hero-text-shadow">
+                Build ATS-Approved
+                <span class="gradient-text">Resume</span>
+                in 10 Seconds
+              </h1>
+
+              <!-- Subheading -->
+              <p class="mt-6 max-w-xl text-base leading-8 text-slate-300 sm:text-lg">
+                NaukriGPT turns your skills, degree, projects, and job target into a premium resume tailored for Pakistan's competitive hiring market. From LUMS to Karachi University, students trust us.
+              </p>
+
+              <!-- CTA Buttons -->
+              <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+                <button class="rounded-full btn-gradient px-7 py-3.5 text-base font-bold">
+                  Start Building Free
+                </button>
+                <button class="rounded-full border border-slate-700 bg-slate-900/50 px-7 py-3.5 text-base font-bold text-slate-100 transition hover:border-slate-500 hover:bg-slate-800/70">
+                  Watch Demo (2min)
+                </button>
+              </div>
+
+              <!-- Feature List -->
+              <div class="mt-8 flex flex-wrap items-center gap-5 text-sm text-slate-300">
+                <div class="flex items-center gap-2">
+                  <span class="flex h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+                  ATS optimized
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="flex h-2.5 w-2.5 rounded-full bg-cyan-400"></span>
+                  Job-specific tailoring
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="flex h-2.5 w-2.5 rounded-full bg-violet-400"></span>
+                  Instant PDF export
+                </div>
+              </div>
+            </div>
+
+            <!-- Resume Preview -->
+            <div class="relative">
+              <div class="preview-shell glass-strong relative overflow-hidden rounded-[28px] border border-slate-700/60 p-4 shadow-softCard">
+                <div class="absolute inset-x-8 top-0 h-20 bg-gradient-to-b from-cyan-400/10 via-cyan-400/0 to-transparent blur-2xl"></div>
+
+                <div class="rounded-[22px] border border-slate-700/80 bg-slate-950/80 p-4 shadow-2xl">
+                  <!-- Resume Header -->
+                  <div class="mb-4 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <div class="h-2.5 w-2.5 rounded-full bg-rose-400"></div>
+                      <div class="h-2.5 w-2.5 rounded-full bg-amber-400"></div>
+                      <div class="h-2.5 w-2.5 rounded-full bg-emerald-400"></div>
+                    </div>
+                    <div class="rounded-full border border-slate-700 bg-slate-900 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-slate-300">
+                      ATS MODE
+                    </div>
+                  </div>
+
+                  <!-- AI Processing Section -->
+                  <div class="mb-4 rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-3">
+                    <div class="flex items-center justify-between">
+                      <div class="text-[10px] uppercase tracking-[0.22em] text-cyan-200">🤖 AI Resume Builder</div>
+                      <div class="rounded-full bg-emerald-500/15 px-2 py-1 text-[10px] font-semibold text-emerald-300">94% ATS Match</div>
+                    </div>
+
+                    <div class="mt-3 text-sm text-slate-200">
+                      <span id="typedText" class="font-medium text-slate-100"></span><span class="type-cursor"></span>
+                    </div>
+                  </div>
+
+                  <!-- Resume Content -->
+                  <div class="space-y-4">
+                    <!-- Profile -->
+                    <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4">
+                      <div class="flex items-center justify-between">
+                        <div>
+                          <div class="text-xl font-bold text-white">Muhammad Ali</div>
+                          <div class="mt-1 text-sm text-slate-400">Software Engineer • FAST NUCES</div>
+                        </div>
+                        <div class="rounded-full border border-violet-500/30 bg-violet-500/10 px-2.5 py-1 text-xs font-medium text-violet-200">
+                          Open to Work
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-2 gap-3">
+                      <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-3">
+                        <div class="text-[10px] uppercase tracking-[0.18em] text-slate-500">Experience</div>
+                        <div class="mt-2 text-lg font-bold text-white">2+ Years</div>
+                      </div>
+                      <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-3">
+                        <div class="text-[10px] uppercase tracking-[0.18em] text-slate-500">Projects</div>
+                        <div class="mt-2 text-lg font-bold text-white">12 Built</div>
+                      </div>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+                      <div class="mb-2 text-[10px] uppercase tracking-[0.18em] text-slate-500">Key Strengths</div>
+                      <div class="flex flex-wrap gap-2">
+                        <span class="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-xs font-medium text-cyan-200">Python</span>
+                        <span class="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-xs font-medium text-cyan-200">React</span>
+                        <span class="rounded-full border border-violet-500/20 bg-violet-500/10 px-2.5 py-1 text-xs font-medium text-violet-200">SQL</span>
+                        <span class="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-200">Data Analysis</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="mx-auto max-w-6xl py-16 sm:py-20">
+          <div class="mb-12 text-center">
+            <div class="mb-4 inline-flex rounded-full badge-cyan px-3 py-1.5 text-xs font-bold uppercase tracking-[0.18em]">
+              Features
+            </div>
+            <h2 class="section-title max-w-3xl text-3xl font-black tracking-[-0.05em] text-white sm:text-5xl mx-auto">
+              Everything you need to land your dream job
+            </h2>
+          </div>
+
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="glass card-hover rounded-3xl p-6">
+              <div class="feature-icon mb-4">⚡</div>
+              <h3 class="text-lg font-bold text-white">10-second generation</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Generate polished resumes in seconds with AI-based writing and formatting.</p>
+            </div>
+
+            <div class="glass card-hover rounded-3xl p-6">
+              <div class="feature-icon mb-4">🎯</div>
+              <h3 class="text-lg font-bold text-white">Job-specific tailoring</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Customize your CV for each role including internships, jobs, and scholarships.</p>
+            </div>
+
+            <div class="glass card-hover rounded-3xl p-6">
+              <div class="feature-icon mb-4">📄</div>
+              <h3 class="text-lg font-bold text-white">ATS-friendly layout</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Clean structure for recruiters and automated screening systems across Pakistan.</p>
+            </div>
+
+            <div class="glass card-hover rounded-3xl p-6">
+              <div class="feature-icon mb-4">🔒</div>
+              <h3 class="text-lg font-bold text-white">Secure & quick export</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Download polished PDFs instantly for LinkedIn, job portals, and interviews.</p>
+            </div>
+
+            <div class="glass card-hover rounded-3xl p-6">
+              <div class="feature-icon mb-4">🌍</div>
+              <h3 class="text-lg font-bold text-white">Pakistan-focused</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Built for Pakistani job market: Linkedin, Rozee.pk, Daraz, TCS, Akron formats.</p>
+            </div>
+
+            <div class="glass card-hover rounded-3xl p-6">
+              <div class="feature-icon mb-4">💼</div>
+              <h3 class="text-lg font-bold text-white">Cover letter builder</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">AI-powered cover letters tailored to each job application with one click.</p>
+            </div>
+
+            <div class="glass card-hover rounded-3xl p-6">
+              <div class="feature-icon mb-4">📊</div>
+              <h3 class="text-lg font-bold text-white">Analytics dashboard</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">Track resume views, application stats, and interview callbacks in real-time.</p>
+            </div>
+
+            <div class="glass card-hover rounded-3xl p-6">
+              <div class="feature-icon mb-4">🤝</div>
+              <h3 class="text-lg font-bold text-white">Expert support</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">24/7 chat support in Urdu and English with career counselors available.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="mx-auto max-w-6xl py-16 sm:py-20">
+          <div class="mb-12 text-center">
+            <div class="mb-4 inline-flex rounded-full badge-violet px-3 py-1.5 text-xs font-bold uppercase tracking-[0.18em]">
+              Pricing
+            </div>
+            <h2 class="section-title max-w-3xl text-3xl font-black tracking-[-0.05em] text-white sm:text-5xl mx-auto">
+              Simple plans for every stage
+            </h2>
+            <p class="mt-4 text-slate-300">No hidden fees. Cancel anytime. All plans include 7-day free trial.</p>
+          </div>
+
+          <div class="grid gap-6 lg:grid-cols-3">
+            <!-- Free Plan -->
+            <div class="glass card-hover rounded-[28px] p-8">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="text-sm uppercase tracking-[0.2em] text-slate-400">Free</p>
+                  <h3 class="mt-3 text-4xl font-black text-white">PKR 0</h3>
+                  <p class="mt-1 text-sm text-slate-400">Forever free</p>
+                </div>
+                <div class="rounded-full border border-slate-700 bg-slate-900 px-2.5 py-1 text-xs font-medium text-slate-300">
+                  Starter
+                </div>
+              </div>
+
+              <p class="mt-6 text-sm text-slate-300">Perfect for first-time job seekers and students.</p>
+
+              <ul class="mt-8 space-y-3 text-sm text-slate-200">
+                <li class="flex gap-3"><span class="text-emerald-400 font-bold">✓</span> 1 AI resume</li>
+                <li class="flex gap-3"><span class="text-emerald-400 font-bold">✓</span> Basic ATS optimization</li>
+                <li class="flex gap-3"><span class="text-emerald-400 font-bold">✓</span> PDF export</li>
+                <li class="flex gap-3"><span class="text-emerald-400 font-bold">✓</span> 3 templates</li>
+                <li class="flex gap-3"><span class="text-slate-600 font-bold">✗</span> Job tailoring</li>
+                <li class="flex gap-3"><span class="text-slate-600 font-bold">✗</span> Cover letter</li>
+              </ul>
+
+              <button class="mt-8 w-full rounded-full border border-slate-700 bg-slate-900/70 px-5 py-3 font-bold text-slate-100 hover:border-slate-500 hover:bg-slate-800/80 transition">
+                Get Started
+              </button>
+            </div>
+
+            <!-- Pro Plan (Popular) -->
+            <div class="glass-accent card-hover pricing-card-popular rounded-[28px] border-cyan-400/40 p-8 relative">
+              <div class="absolute -top-4 right-6 rounded-full bg-gradient-to-r from-cyan-400 to-violet-500 px-4 py-1 text-xs font-black text-slate-950 shadow-glow">
+                Most Popular
+              </div>
+
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="text-sm uppercase tracking-[0.2em] text-cyan-200">Pro</p>
+                  <h3 class="mt-3 text-4xl font-black text-white">PKR 999</h3>
+                  <p class="mt-1 text-sm text-slate-400">/month</p>
+                </div>
+              </div>
+
+              <p class="mt-6 text-sm text-slate-300">Best for students and early-career professionals.</p>
+
+              <ul class="mt-8 space-y-3 text-sm text-slate-200">
+                <li class="flex gap-3"><span class="text-emerald-400 font-bold">✓</span> Unlimited AI resumes</li>
+                <li class="flex gap-3"><span class="text-emerald-400 font-bold">✓</span> Job-specific content rewriting</li>
+                <li class="flex gap-3"><span class="text-emerald-400 font-bold">✓</span> Premium ATS templates (15+)</li>
+                <li class="flex gap-3"><span class="text-emerald-400 font-bold">✓</span> PDF + DOCX export</li>
+                <li class="flex gap-3"><span class="text-emerald-400 font-bold">✓</span> Cover letter generator</li>
+                <li class="flex gap-3"><span class="text-emerald-400 font-bold">✓</span> Email support</li>
+              </ul>
+
+              <button class="mt-8 w-full rounded-full btn-gradient px-5 py-3 font-bold">
+                Start 7-Day Free Trial
+              </button>
+
+              <div class="mt-6 flex items-center justify-center gap-3">
+                <div class="rounded-full bg-[#F5C94A] px-3 py-1 text-[10px] font-black text-slate-900">JazzCash</div>
+                <div class="rounded-full bg-[#1D8F5D] px-3 py-1 text-[10px] font-black text-white">Easypaisa</div>
+                <div class="rounded-full bg-[#003DA5] px-3 py-1 text-[10px] font-black text-white">HBL UPaisa</div>
+              </div>
+            </div>
+
+            <!-- Elite Plan -->
+            <div class="glass card-hover rounded-[28px] p-8">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="text-sm uppercase tracking-[0.2em] text-amber-200">Elite</p>
+                  <h3 class="mt-3 text-4xl font-black text-white">PKR 1999</h3>
+                  <p class="mt-1 text-sm text-slate-400">/month</p>
+                </div>
+                <div class="rounded-full border border-amber-400/25 bg-amber-500/10 px-2.5 py-1 text-xs font-medium text-amber-200">
+                  Premium
+                </div>
+              </div>
+
+              <p class="mt-6 text-sm text-slate-300">For professionals targeting leadership and top-tier roles.</p>
+
+              <ul class="mt-8 space-y-3 text-sm text-slate-200">
+                <li class="flex gap-3"><span class="text-emerald-400 font-bold">✓</span> Everything in Pro</li>
+                <li class="flex gap-3"><span class="text-emerald-400 font-bold">✓</span> Executive resume strategy</li>
+                <li class="flex gap-3"><span class="text-emerald-400 font-bold">✓</span> LinkedIn profile rewrite</li>
+                <li class="flex gap-3"><span class="text-emerald-400 font-bold">✓</span> Interview prep AI coach</li>
+                <li class="flex gap-3"><span class="text-emerald-400 font-bold">✓</span> Career consultant calls (2/mo)</li>
+                <li class="flex gap-3"><span class="text-emerald-400 font-bold">✓</span> Priority 24/7 support</li>
+              </ul>
+
+              <button class="mt-8 w-full rounded-full border border-amber-500/30 bg-amber-500/10 px-5 py-3 font-bold text-amber-100 hover:bg-amber-500/20 transition">
+                Upgrade to Elite
+              </button>
+
+              <div class="mt-6 flex items-center justify-center gap-3">
+                <div class="rounded-full bg-[#F5C94A] px-3 py-1 text-[10px] font-black text-slate-900">JazzCash</div>
+                <div class="rounded-full bg-[#1D8F5D] px-3 py-1 text-[10px] font-black text-white">Easypaisa</div>
+                <div class="rounded-full bg-[#003DA5] px-3 py-1 text-[10px] font-black text-white">HBL UPaisa</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-12 rounded-2xl glass p-6 text-center">
+            <p class="text-sm text-slate-300">
+              <span class="font-bold text-white">Student Discount:</span> Show your .edu email and get 40% off annual Pro subscription. Valid for LUMS, IBA, FAST, Karachi University, and 50+ other institutions.
+            </p>
+          </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="mx-auto max-w-6xl py-16 sm:py-20">
+          <div class="mb-12 text-center">
+            <div class="mb-4 inline-flex rounded-full badge-cyan px-3 py-1.5 text-xs font-bold uppercase tracking-[0.18em]">
+              Success Stories
+            </div>
+            <h2 class="section-title max-w-3xl text-3xl font-black tracking-[-0.05em] text-white sm:text-5xl mx-auto">
+              Loved by students and professionals across Pakistan
+            </h2>
+          </div>
+
+          <div class="grid gap-6 lg:grid-cols-3">
+            <!-- Testimonial 1 -->
+            <div class="glass card-hover rounded-[28px] p-6">
+              <div class="mb-6 flex items-center gap-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-violet-500 text-sm font-black text-slate-950">
+                  SA
+                </div>
+                <div>
+                  <div class="font-bold text-white">Sana A.</div>
+                  <div class="text-sm text-slate-400">LUMS • Economics</div>
+                </div>
+              </div>
+              <div class="mb-4 flex items-center gap-1 text-amber-400">
+                <span>★★★★★</span>
+              </div>
+              <p class="text-sm leading-7 text-slate-300">
+                "I used NaukriGPT for my internship applications at top Pakistani companies and landed interviews at 3 companies within 2 weeks. The resume looked polished and was perfectly aligned with each job description."
+              </p>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="glass card-hover rounded-[28px] p-6">
+              <div class="mb-6 flex items-center gap-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-cyan-500 text-sm font-black text-slate-950">
+                  HM
+                </div>
+                <div>
+                  <div class="font-bold text-white">Hamza M.</div>
+                  <div class="text-sm text-slate-400">Karachi University • CS</div>
+                </div>
+              </div>
+              <div class="mb-4 flex items-center gap-1 text-amber-400">
+                <span>★★★★★</span>
+              </div>
+              <p class="text-sm leading-7 text-slate-300">
+                "The ATS optimization is genuinely helpful. My resume looked professional and my application response rate improved within two weeks. I got 5 interview calls in one month."
+              </p>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="glass card-hover rounded-[28px] p-6">
+              <div class="mb-6 flex items-center gap-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-violet-400 to-pink-500 text-sm font-black text-slate-950">
+                  NK
+                </div>
+                <div>
+                  <div class="font-bold text-white">Nadia K.</div>
+                  <div class="text-sm text-slate-400">IBA • Marketing</div>
+                </div>
+              </div>
+              <div class="mb-4 flex items-center gap-1 text-amber-400">
+                <span>★★★★★</span>
+              </div>
+              <p class="text-sm leading-7 text-slate-300">
+                "I've used multiple tools, but this is the first one that felt built specifically for the Pakistani hiring market. My resume looks premium and job-ready. Best investment I made this year!"
+              </p>
+            </div>
+
+            <!-- Testimonial 4 -->
+            <div class="glass card-hover rounded-[28px] p-6">
+              <div class="mb-6 flex items-center gap-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-rose-400 to-orange-500 text-sm font-black text-slate-950">
+                  AR
+                </div>
+                <div>
+                  <div class="font-bold text-white">Ahmed R.</div>
+                  <div class="text-sm text-slate-400">FAST NUCES • Software Dev</div>
+                </div>
+              </div>
+              <div class="mb-4 flex items-center gap-1 text-amber-400">
+                <span>★★★★★</span>
+              </div>
+              <p class="text-sm leading-7 text-slate-300">
+                "Got an offer from a top tech company in Karachi within 3 weeks. The cover letter generator and job-specific tailoring saved me hours. Highly recommend to any Pakistani job seeker."
+              </p>
+            </div>
+
+            <!-- Testimonial 5 -->
+            <div class="glass card-hover rounded-[28px] p-6">
+              <div class="mb-6 flex items-center gap-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-teal-400 to-blue-500 text-sm font-black text-slate-950">
+                  FP
+                </div>
+                <div>
+                  <div class="font-bold text-white">Farah P.</div>
+                  <div class="text-sm text-slate-400">PU Lahore • Engineering</div>
+                </div>
+              </div>
+              <div class="mb-4 flex items-center gap-1 text-amber-400">
+                <span>★★★★★</span>
+              </div>
+              <p class="text-sm leading-7 text-slate-300">
+                "As a fresh graduate, I had no idea how to structure my resume. NaukriGPT did the heavy lifting. Now I have a professional resume that helped me land my first job at TCS."
+              </p>
+            </div>
+
+            <!-- Testimonial 6 -->
+            <div class="glass card-hover rounded-[28px] p-6">
+              <div class="mb-6 flex items-center gap-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-pink-400 to-rose-500 text-sm font-black text-slate-950">
+                  SB
+                </div>
+                <div>
+                  <div class="font-bold text-white">Samia B.</div>
+                  <div class="text-sm text-slate-400">AKU-IED • HR Professional</div>
+                </div>
+              </div>
+              <div class="mb-4 flex items-center gap-1 text-amber-400">
+                <span>★★★★★</span>
+              </div>
+              <p class="text-sm leading-7 text-slate-300">
+                "Even as an experienced HR professional, I found value in the analytics dashboard. Tracking my application stats helped me optimize my job search strategy significantly."
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="mx-auto max-w-4xl py-16 sm:py-20">
+          <div class="mb-12 text-center">
+            <div class="mb-4 inline-flex rounded-full badge-violet px-3 py-1.5 text-xs font-bold uppercase tracking-[0.18em]">
+              FAQ
+            </div>
+            <h2 class="section-title max-w-3xl text-3xl font-black tracking-[-0.05em] text-white sm:text-5xl mx-auto">
+              Everything you need to know
+            </h2>
+          </div>
+
+          <div class="space-y-4">
+            <!-- FAQ Item 1 -->
+            <div class="faq-item glass rounded-2xl p-5 open">
+              <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left">
+                <span class="text-lg font-semibold text-white">Is this resume builder optimized for ATS?</span>
+                <span class="text-2xl text-cyan-300">−</span>
+              </button>
+              <div class="faq-answer pr-4 text-sm leading-7 text-slate-300">
+                Yes. NaukriGPT is designed to create clean, recruiter-friendly, ATS-compliant resumes with clear sectioning, keyword placement, and simple formatting that screeners and automated systems can read easily. We test every template against major ATS platforms used in Pakistan.
+              </div>
+            </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="faq-item glass rounded-2xl p-5">
+              <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left">
+                <span class="text-lg font-semibold text-white">Can I customize my resume for different jobs?</span>
+                <span class="text-2xl text-cyan-300">+</span>
+              </button>
+              <div class="faq-answer pr-4 text-sm leading-7 text-slate-300">
+                Absolutely. You can upload your target job description and our AI will tailor keywords, experience points, skills, and summary to match the exact role. Perfect for Rozee.pk, LinkedIn, and company career pages.
+              </div>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="faq-item glass rounded-2xl p-5">
+              <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left">
+                <span class="text-lg font-semibold text-white">Does it work for students and fresh graduates?</span>
+                <span class="text-2xl text-cyan-300">+</span>
+              </button>
+              <div class="faq-answer pr-4 text-sm leading-7 text-slate-300">
+                Yes. It is especially helpful for students, graduates, and applicants with little work experience, helping them turn internships, coursework, projects, and leadership roles into strong resume content that impresses recruiters.
+              </div>
+            </div>
+
+            <!-- FAQ Item 4 -->
+            <div class="faq-item glass rounded-2xl p-5">
+              <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left">
+                <span class="text-lg font-semibold text-white">What payment methods are available in Pakistan?</span>
+                <span class="text-2xl text-cyan-300">+</span>
+              </button>
+              <div class="faq-answer pr-4 text-sm leading-7 text-slate-300">
+                We support secure local payment methods including JazzCash, Easypaisa, and HBL UPaisa for seamless monthly subscriptions and premium access. No international card required.
+              </div>
+            </div>
+
+            <!-- FAQ Item 5 -->
+            <div class="faq-item glass rounded-2xl p-5">
+              <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left">
+                <span class="text-lg font-semibold text-white">Can I export PDF and Word versions?</span>
+                <span class="text-2xl text-cyan-300">+</span>
+              </button>
+              <div class="faq-answer pr-4 text-sm leading-7 text-slate-300">
+                Yes. Free plans include PDF export. Pro and Elite plans include both PDF and DOCX (Word) export options so you can apply on job portals, share via email, or print copies for interviews.
+              </div>
+            </div>
+
+            <!-- FAQ Item 6 -->
+            <div class="faq-item glass rounded-2xl p-5">
+              <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left">
+                <span class="text-lg font-semibold text-white">Is my data secure and private?</span>
+                <span class="text-2xl text-cyan-300">+</span>
+              </button>
+              <div class="faq-answer pr-4 text-sm leading-7 text-slate-300">
+                Absolutely. All your resume data is encrypted end-to-end. We comply with international data protection standards and never share your information with third parties. Your privacy is our priority.
+              </div>
+            </div>
+
+            <!-- FAQ Item 7 -->
+            <div class="faq-item glass rounded-2xl p-5">
+              <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left">
+                <span class="text-lg font-semibold text-white">Can I cancel my subscription anytime?</span>
+                <span class="text-2xl text-cyan-300">+</span>
+              </button>
+              <div class="faq-answer pr-4 text-sm leading-7 text-slate-300">
+                Yes. No long-term contracts. Cancel your subscription anytime from your account settings. Your data remains available for download for 30 days after cancellation.
+              </div>
+            </div>
+
+            <!-- FAQ Item 8 -->
+            <div class="faq-item glass rounded-2xl p-5">
+              <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left">
+                <span class="text-lg font-semibold text-white">Do you support Urdu language resumes?</span>
+                <span class="text-2xl text-cyan-300">+</span>
+              </button>
+              <div class="faq-answer pr-4 text-sm leading-7 text-slate-300">
+                Our current version supports English resumes optimized for international and top Pakistani companies. Urdu support is coming in Q4 2026. Students and professionals prioritize English resumes for competitive roles.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="mx-auto max-w-6xl py-16 sm:py-20">
+          <div class="glass-strong rounded-[32px] border border-cyan-400/30 p-8 text-center sm:p-12">
+            <h2 class="section-title text-3xl font-black tracking-[-0.05em] text-white sm:text-5xl">
+              Ready to build your <span class="gradient-text">dream resume</span>?
+            </h2>
+            <p class="mt-4 text-lg text-slate-300">
+              Join 25,000+ Pakistani job seekers who landed their dream roles with NaukriGPT.
+            </p>
+            <div class="mt-8 flex flex-col gap-4 sm:flex-row justify-center sm:gap-6">
+              <button class="rounded-full btn-gradient px-8 py-4 text-base font-bold">
+                Start Your 7-Day Free Trial
+              </button>
+              <button class="rounded-full border border-cyan-400/30 bg-cyan-400/5 px-8 py-4 text-base font-bold text-cyan-100 hover:bg-cyan-400/10 transition">
+                Schedule Demo Call
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Footer -->
+      <footer class="mt-16 border-t border-slate-800/50 py-12">
+        <div class="mx-auto max-w-6xl grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+          <!-- Brand -->
+          <div>
+            <div class="flex items-center gap-3">
+              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-violet-500 shadow-glow">
+                <span class="text-lg font-black text-slate-950">N</span>
+              </div>
+              <div class="text-xl font-black text-white">NaukriGPT</div>
+            </div>
+            <p class="mt-3 text-sm leading-6 text-slate-400">
+              AI Resume Builder built for Pakistan's competitive job market.
+            </p>
+          </div>
+
+          <!-- Product -->
+          <div>
+            <h4 class="font-bold text-white mb-4">Product</h4>
+            <ul class="space-y-2 text-sm text-slate-400">
+              <li><a href="#features" class="hover:text-white transition">Features</a></li>
+              <li><a href="#pricing" class="hover:text-white transition">Pricing</a></li>
+              <li><a href="#testimonials" class="hover:text-white transition">Testimonials</a></li>
+              <li><a href="#faq" class="hover:text-white transition">FAQ</a></li>
+            </ul>
+          </div>
+
+          <!-- Company -->
+          <div>
+            <h4 class="font-bold text-white mb-4">Company</h4>
+            <ul class="space-y-2 text-sm text-slate-400">
+              <li><a href="#" class="hover:text-white transition">About Us</a></li>
+              <li><a href="#" class="hover:text-white transition">Blog</a></li>
+              <li><a href="#" class="hover:text-white transition">Careers</a></li>
+              <li><a href="#" class="hover:text-white transition">Contact</a></li>
+            </ul>
+          </div>
+
+          <!-- Legal -->
+          <div>
+            <h4 class="font-bold text-white mb-4">Legal</h4>
+            <ul class="space-y-2 text-sm text-slate-400">
+              <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+              <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+              <li><a href="#" class="hover:text-white transition">Cookie Policy</a></li>
+              <li><a href="#" class="hover:text-white transition">Support</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-800/50 pt-8">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-400">
+            <p>© 2026 NaukriGPT. All rights reserved. Made with ❤️ for Pakistan.</p>
+            <div class="flex items-center gap-4">
+              <a href="#" class="hover:text-white transition">Twitter</a>
+              <a href="#" class="hover:text-white transition">LinkedIn</a>
+              <a href="#" class="hover:text-white transition">Instagram</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      // Typing effect for resume preview
+      const typedText = document.getElementById("typedText");
+      const phrases = [
+        "🤖 AI is analyzing your profile...",
+        "💼 Tailoring for software engineer roles...",
+        "✨ Optimizing for ATS and recruiters...",
+        "🎯 Finalizing premium CV for success..."
+      ];
+
+      let phraseIndex = 0;
+      let charIndex = 0;
+      let deleting = false;
+
+      function typeLoop() {
+        const current = phrases[phraseIndex];
+
+        if (!deleting) {
+          charIndex++;
+          typedText.textContent = current.slice(0, charIndex);
+
+          if (charIndex === current.length) {
+            deleting = true;
+            setTimeout(typeLoop, 1200);
+            return;
+          }
+        } else {
+          charIndex--;
+          typedText.textContent = current.slice(0, charIndex);
+
+          if (charIndex === 0) {
+            deleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+          }
+        }
+
+        const speed = deleting ? 40 : 75;
+        setTimeout(typeLoop, speed);
+      }
+
+      typeLoop();
+
+      // FAQ Toggle Functionality
+      const faqItems = document.querySelectorAll(".faq-item");
+      faqItems.forEach((item) => {
+        const button = item.querySelector(".faq-toggle");
+        button.addEventListener("click", () => {
+          // Close other items
+          faqItems.forEach((otherItem) => {
+            if (otherItem !== item && otherItem.classList.contains("open")) {
+              otherItem.classList.remove("open");
+              const otherSign = otherItem.querySelector("span:last-child");
+              otherSign.textContent = "+";
+            }
+          });
+
+          // Toggle current item
+          item.classList.toggle("open");
+          const sign = button.querySelector("span:last-child");
+          sign.textContent = item.classList.contains("open") ? "−" : "+";
+        });
+      });
+
+      // Smooth scroll for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          const href = this.getAttribute("href");
+          if (href !== "#") {
+            e.preventDefault();
+            const element = document.querySelector(href);
+            if (element) {
+              element.scrollIntoView({ behavior: "smooth" });
+            }
+          }
+        });
+      });
+
+      // Button interactions
+      const buttons = document.querySelectorAll("button");
+      buttons.forEach((button) => {
+        if (button.classList.contains("btn-gradient")) {
+          button.addEventListener("click", function () {
+            console.log("Button clicked - Ready to integrate with backend");
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
